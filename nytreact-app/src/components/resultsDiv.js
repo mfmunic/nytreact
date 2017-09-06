@@ -1,29 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Panel, Button } from 'react-bootstrap';
+import API from "../utils/api.js";
 
-class Search extends Component {
-  //   state = {
-  //   	topic: '',
-  //   	startYear:"",
-  //   	endYear:""
-  // 	};
 
-  // handleChange = event => {
-  //   const value = event.target.value;
-  //   const name = event.target.name;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
 
-  render = () => {
+  function saveArt (artHead, artMain) {
+    API.saveArticles(artHead, artMain)
+  }
+
+  const Results = props => {
     return (
-    	<Panel className="searchPnl">
-    		<h2 className="searchBnr">Results</h2>
-    	</Panel>
+      <Panel className="searchPnl resultsPnl">
+        <h2 className="searchBnr">Results</h2>
+        <ul className="list-group">
+          {props.results.map(result =>
+            <Panel className="resPnl" header={result.headline.main} key={result._id} bsStyle="primary">
+              <div className="resTxt">
+                <div>
+                  <Button onClick={() => {saveArt(result.headline.main, result.snippet)}}>Save</Button>
+                </div>
+                <div>
+                  {result.snippet}
+                </div>
+              </div>
+            </Panel>
+          )}
+        </ul>;
+      </Panel>
     );
   }
-};
 
-
-export default Search;
+export default Results;

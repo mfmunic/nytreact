@@ -22,3 +22,16 @@ body {
 	background-color: #337ab7;
 	color: white;
 }
+
+/*.resultsPnl{
+	margin: 0 auto;
+	width: 100%;
+}*/
+
+.resPnl{
+	text-align: left;
+}
+
+.resTxt{
+	display: flex;
+}
