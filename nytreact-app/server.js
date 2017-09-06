@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json())
 
-app.use(express.static("public"));
+app.use(express.static("build"));
 app.use("/", routes);
 
 mongoose.connect("mongodb://localhost/nytreact");
@@ -41,3 +41,5 @@ var PORT = process.env.PORT || 5000;
 app.listen(PORT, function() {
   console.log("App running on "+PORT);
 });
+
+module.exports = PORT

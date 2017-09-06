@@ -1,7 +1,10 @@
 import axios from "axios";
 const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 const APIKEY = "02bae414f0b840cfa037ba9a60bc5139";
-const local = "http://localhost:5000"
+let apiUrl = "http://localhost:5000"
+if(process.env.NODE_ENV === 'production') {
+  apiUrl = ""
+} 
 
 export default {
   getArticles: (data) => {
@@ -9,15 +12,15 @@ export default {
   },
   // Retrieves all quotes from the db
   getSavedArticles: function() {
-    return axios.get(`${local}/api/articles`);
+    return axios.get(`${apiUrl}/api/articles`);
   },
   // Saves a new quote to the db
   saveArticles: function(headLine, paragraph) {
-    return axios.post(`${local}/api/articles`, { title: headLine, snippet: paragraph, saved: true });
+    return axios.post(`${apiUrl}/api/articles`, { title: headLine, snippet: paragraph, saved: true });
   },
   // Deletes a quote from the db
   deleteArticles: function(id) {
-    return axios.delete(`${local}/api/articles/${id}`);
+    return axios.delete(`${apiUrl}/api/articles/${id}`);
   },
 
 };
