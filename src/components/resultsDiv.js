@@ -4,7 +4,7 @@ import API from "../utils/api.js";
 
 
 
-  function savedArt (artHead, artMain) {
+  function saveArt (artHead, artMain) {
     API.saveArticles("test")
   }
 

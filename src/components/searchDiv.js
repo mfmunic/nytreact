@@ -8,7 +8,8 @@ class Search extends Component {
     	topic: '',
     	startYear:"",
     	endYear:"",
-    	results: []
+    	results: [],
+    	articles: []
   	};
 
 	handleFormSubmit = event => {
@@ -35,14 +36,31 @@ class Search extends Component {
 				this.state.results.splice([i],1)
 				let newArr = this.state.results
 				this.setState({results:newArr})
-				this.renderArts.bind(this)
+				this.renderSearchedArts.bind(this)
 			}
 		}
 	   	API.saveArticles(artHead, artMain)
-	   		// .then(this.renderArts.bind(this))
+	   		.then(this.getSavedArts.bind(this))
   	}
 
-	renderArts = () => {
+  	componentDidMount() {
+    	this.getSavedArts();
+	}
+
+	getSavedArts() {
+	    API.getSavedArticles().then((res) => {
+	      console.log(res);
+	      const favoriteArts = res.data.filter(art => art.saved === true);
+	      this.setState({ articles: favoriteArts });
+	    });
+	}
+
+	delArt(id) {
+	    API.deleteArticles(id)
+	      .then(this.getSavedArts.bind(this))
+	}
+
+	renderSearchedArts = () => {
 	    return this.state.results.map(result => (
 			<Panel className="resPnl" header={result.headline.main} key={result._id} bsStyle="primary">
 			    <div className="resTxt">
@@ -59,6 +77,23 @@ class Search extends Component {
 			</Panel>
 		))
 	}
+
+
+
+	renderSavedArticles() {
+	    console.log(this.state)
+	    return this.state.articles.map(art => (
+	      <Panel
+	        key={art._id}
+	        bsStyle="primary"
+	      >
+	        <div>
+	          <Button onClick={() => {this.delArt(art._id)}}>Delete</Button>
+	          {art.title}
+	        </div>
+	      </Panel>
+	    ));
+	 }
 
   	render = () => {
 	    return (
@@ -103,9 +138,18 @@ class Search extends Component {
 			      <Panel className="searchPnl resultsPnl">
 			        <h2 className="searchBnr">Results</h2>
 			        <ul className="list-group">
-			          {this.renderArts()}
+			        	{this.renderSearchedArts()}
 			        </ul>;
 			      </Panel>
+		    	</div>
+
+		    	<div>
+		    		<Panel className="searchPnl">
+				        <h2 className="searchBnr">Saved Articles</h2>
+				        <ul className="list-group">
+				        	{this.renderSavedArticles()}
+				        </ul>;
+				    </Panel>
 		    	</div>
 		    </div>
 	    );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PageHeader } from 'react-bootstrap';
 import SearchDiv from "./components/searchDiv"
-import SavedDiv from "./components/savedDiv"
+import ResultsDiv from "./components/resultsDiv"
 import './App.css';
 
 
@@ -17,7 +17,6 @@ class App extends Component {
           </div>
         </PageHeader>
         <SearchDiv />
-        <SavedDiv />
       </div>
     );
   }
