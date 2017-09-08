@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 app.use(express.static("build"));
 app.use("/", routes);
 
-mongoose.connect("mongodb://heroku_gv3t390c:a04a80d05c91ifu57dd7n09sks@ds123534.mlab.com:23534/heroku_gv3t390c");
+mongoose.connect("mongodb://localhost/nytreact");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -36,7 +36,7 @@ db.once("open", function() {
 
 // require("./routes/api-routes.js")(app);
 
-var PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 4000;
 
 app.listen(PORT, function() {
   console.log("App running on "+PORT);

@@ -1,7 +1,7 @@
 import axios from "axios";
 const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 const APIKEY = "02bae414f0b840cfa037ba9a60bc5139";
-let apiUrl = "http://localhost:5000"
+let apiUrl = "http://localhost:4000"
 if(process.env.NODE_ENV === 'production') {
   apiUrl = ""
 } 

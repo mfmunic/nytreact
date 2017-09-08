@@ -4,8 +4,8 @@ import API from "../utils/api.js";
 
 
 
-  function saveArt (artHead, artMain) {
-    API.saveArticles(artHead, artMain)
+  function savedArt (artHead, artMain) {
+    API.saveArticles("test")
   }
 
   const Results = props => {
@@ -17,7 +17,7 @@ import API from "../utils/api.js";
             <Panel className="resPnl" header={result.headline.main} key={result._id} bsStyle="primary">
               <div className="resTxt">
                 <div>
-                  <Button onClick={() => {saveArt(result.headline.main, result.snippet)}}>Save</Button>
+                  <Button onClick={() => {saveArt(result.headline.main, result.snippet)}}>Saved</Button>
                 </div>
                 <div>
                   {result.snippet}

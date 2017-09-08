@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, ControlLabel, FormControl, Panel, Button } from 'react-bootstrap';
 import API from "../utils/api.js"
-import Results from "./resultsDiv.js"
+// import Results from "./resultsDiv.js"
 
 class Search extends Component {
     state = {
@@ -12,7 +12,6 @@ class Search extends Component {
   	};
 
 	handleFormSubmit = event => {
-		console.log(this.state.results)
 
 		event.preventDefault();
 		
@@ -28,6 +27,38 @@ class Search extends Component {
 	      	[name]: value
 	    });
 	};
+
+	saveArt = (artHead, artMain, artId) => {
+		console.log(this.state.results)
+		for(let i = 0; i<this.state.results.length; i++){
+			if(this.state.results[i]._id === artId){
+				this.state.results.splice([i],1)
+				let newArr = this.state.results
+				this.setState({results:newArr})
+				this.renderArts.bind(this)
+			}
+		}
+	   	API.saveArticles(artHead, artMain)
+	   		// .then(this.renderArts.bind(this))
+  	}
+
+	renderArts = () => {
+	    return this.state.results.map(result => (
+			<Panel className="resPnl" header={result.headline.main} key={result._id} bsStyle="primary">
+			    <div className="resTxt">
+			        <div>
+			            <Button 
+			            	onClick={() => this.saveArt(result.headline.main, result.snippet, result._id)}
+			            >Saved
+			            </Button>
+			        </div>
+			        <div>
+			            {result.snippet}
+			        </div>
+			    </div>
+			</Panel>
+		))
+	}
 
   	render = () => {
 	    return (
@@ -69,7 +100,12 @@ class Search extends Component {
 		    	</Panel>
 
 		    	<div>
-		    		<Results results={this.state.results} />
+			      <Panel className="searchPnl resultsPnl">
+			        <h2 className="searchBnr">Results</h2>
+			        <ul className="list-group">
+			          {this.renderArts()}
+			        </ul>;
+			      </Panel>
 		    	</div>
 		    </div>
 	    );
