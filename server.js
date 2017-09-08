@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 app.use(express.static("build"));
 app.use("/", routes);
 
-mongoose.connect("mongodb://localhost/nytreact");
+mongoose.connect("mongodb://heroku_gv3t390c:a04a80d05c91ifu57dd7n09sks@ds123534.mlab.com:23534/heroku_gv3t390c");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
